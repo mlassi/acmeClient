@@ -1,0 +1,75 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/bootstrap.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+</head>
+  <body ng-app="clientApp">
+
+  <div class="container">
+
+      <div class="navbar">
+          <div class="navbar-inner">
+              <a class="brand" href="#/">Ad Client</a>
+              <ul class="nav">
+                  <li class="active"><a href="#/">Home</a></li>
+                  <li><a href="#/ads">Ads</a></li>
+                  <li><a href="#/editad">New Ad</a></li>
+                  <li><a href="#/newspapers">Newspapers</a></li>
+              </ul>
+
+              <ul class="nav pull-right">
+                  <li><a href="#/help">Help</a></li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="fm-customer-bkg img-rounded">
+      </div>
+
+      <form class="form-horizontal">
+          <div id="main">
+              <div ng-view></div>
+          </div>
+
+
+      </form>
+
+  </div>
+
+
+
+  <!--   <script src="bower_components/jquery/dist/jquery.js"></script>-->
+<!--   <script src="http://code.angularjs.org/1.2.9/angular.js"></script> -->
+<script src="bower_components/angular/angular.js"></script>
+ <!--  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script> -->
+
+
+
+        <!-- build:js scripts/modules.js -->
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <!--<script src="scripts/models/Ad.js"></script>
+      <script src="scripts/models/Newspaper.js"></script>-->
+        <script src="scripts/controllers/AdsController.js"></script>
+        <script src="scripts/services/AdsService.js"></script>
+        <script src="scripts/services/NewspaperService.js"></script>
+
+
+        <!-- endbuild -->
+</body>
+</html>
