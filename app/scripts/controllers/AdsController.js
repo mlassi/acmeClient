@@ -37,7 +37,6 @@ angular.module('clientApp.controllers', [])
         };
 
         $scope.deleteAd = function(id) {
-Mizabu55
             AdsService.deleteAd(id).then(function (adId) {
                 var a = adId;
             })

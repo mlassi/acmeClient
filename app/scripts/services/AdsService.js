@@ -10,8 +10,7 @@ angular.module('clientApp.AdsService', [])
                 return {
                     id:0,
                     title: "",
-                    description: "",
-                    newspapers: []
+                    description: ""
                 };
             },
 

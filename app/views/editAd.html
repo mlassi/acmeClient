@@ -1,10 +1,22 @@
 <h2>Add / Edit Ad</h2>
 
 
-<form  class="form-horizontal" name="adForm"  novalidate>
+<form class="form-horizontal" name="adForm" novalidate>
     <input type="text" ng-model="ad.id" ng-readonly="true" placeholder="ID"><br>
-    <input type="text" ng-model="ad.title" placeholder="Ad Title" ><br>
-    <input type="text" ng-model="ad.description" placeholder="Description" name="description" ><br>
-    <input type="button" value="Save Ad" ng-click="saveAd()"  />
+    <input type="text" ng-model="ad.title" placeholder="Ad Title"><br>
+    <input type="text" ng-model="ad.description" placeholder="Description" name="description"><br>
+    <input type="button" value="Save Ad" ng-click="saveAd()"/>
 </form>
-Form: <pre ng-bind="toJSON(adForm)"></pre>
+Form:
+<pre ng-bind="toJSON(adForm)"></pre>
+<div class="control-group">
+    <h3>Ad has been published to these newspapers:</h3>
+    <table>
+        <tr data-ng-repeat="newspaper in ad.newspapers ">
+            <td>
+                <span class="label">{{ newspaper.publicationName }}</span>
+            </td>
+        </tr>
+    </table>
+    >
+</div>

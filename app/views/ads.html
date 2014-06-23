@@ -1,6 +1,6 @@
 
 
-<h4 class="h4">This is the Ad home page. You can display all ads here. You can also create new ads.</h4>
+<h4 class="h4">This is the Ad home page. You can view the existing ads and remove ads from this screen.</h4>
 
 <button ng-click="getAllAds()">View All Ads</button>
 <div ng-show="true">
@@ -12,9 +12,9 @@
         </thead>
     <tr data-ng-repeat="ad in adsList ">
     <td><a href="#/editad/{{ad.id}}">{{  ad.id }}</a></td>
-    <td>{{ ad.title }}</td>
-    <td> {{ ad.description }}</td>
-    <td><button class="btn" ng-click="deleteAd(ad.id)">X</button></td>
+    <td><span>{{ ad.title }}</span></td>
+    <td><span> {{ ad.description }}</span></td>
+    <td><button class="btn" ng-click="deleteAd(ad.id)" />X</td>
     </tr>
 </table>
 </div>
