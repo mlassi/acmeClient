@@ -2,7 +2,8 @@
 
 
 var app = angular.module('clientApp', [
-    'clientApp.controllers',
+    'clientApp.AdsController',
+    'clientApp.NewspaperController',
     'clientApp.AdsService',
     'clientApp.NewspaperService',
     'ngCookies',

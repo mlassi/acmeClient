@@ -4,7 +4,7 @@
 
 // .controller('AdsController', ['$scope', '$http', '$routeParams', 'AdModel', 'AdsService', function ($scope, $http, $routeParams, AdModel, AdsService) {
 //angular.module('clientApp.controllers', ['clientApp.services'])
-angular.module('clientApp.controllers', [])
+angular.module('clientApp.AdsController', [])
 
     .controller('AdsController', function ($scope, $http, $routeParams, AdsService, NewspaperService) {
 

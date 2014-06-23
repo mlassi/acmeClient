@@ -1,4 +1,4 @@
-angular.module('clientApp.controllers', [])
+angular.module('clientApp.NewspaperController', [])
 
     .controller('NewspapersController', function ($scope, $http, $routeParams, NewspaperService) {
 
