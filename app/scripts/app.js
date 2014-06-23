@@ -25,13 +25,13 @@ app.config(function ($routeProvider) {
             templateUrl: 'views/editAd.html',
             controller: 'AdsController'
         })
-        .when('/e', {
-            templateUrl: 'views/login.html',
-            controller: 'AuthCtrl'
+        .when('/newspapers/', {
+            templateUrl: 'views/newspapers.html',
+            controller: 'NewspapersController'
         })
-        .when('/users/:username', {
-            templateUrl: 'views/profile.html',
-            controller: 'ProfileCtrl'
+        .when('/editnewspaper/:newspaperId', {
+            templateUrl: 'views/editNewspaper.html',
+            controller: 'NewspapersController'
         })
         .otherwise({
             redirectTo: '/'

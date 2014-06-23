@@ -1,0 +1,19 @@
+
+
+<h4 class="h4">This is the Manage Newspapers where you can view and remove newspapers.</h4>
+
+<button ng-click="getAllNewspapers()">View All Newspapers</button>
+<div ng-show="true">
+<table class="table table-responsive table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Newspaper Id</th><th>Publication Name</th>
+            </tr>
+        </thead>
+    <tr data-ng-repeat="newspaper in newspaperList ">
+    <td><a href="#/editnewspaper/{{newspaper.id}}">{{  newspaper.id }}</a></td>
+    <td><span>{{ newspaper.publicationName }}</span></td>
+    <td><button class="btn" ng-click="deleteNewspaper(newspaper.id)" />X</td>
+    </tr>
+</table>
+</div>

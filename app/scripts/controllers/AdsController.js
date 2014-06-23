@@ -40,19 +40,13 @@ angular.module('clientApp.controllers', [])
             AdsService.deleteAd(id).then(function (adId) {
                 var a = adId;
             })
-        }
+        };
 
-        $scope.save = function() {
-            alert('saving');
-        }
         $scope.getAllNewspapers = function() {
             NewspaperService.getAllNewspapers().then(function(returnedNewspapers) {
                 $scope.newspaperList = returnedNewspapers;
             })
-           // AdsService.getAllNewspapers().then(function(returnedNewspapers) {
-          //      $scope.newspaperList = returnedNewspapers;
-          //  })
-        }
+        };
 
         $scope.publishAd = function(newspaper) {
             AdsService.publishAdToNewspaper($routeParams.adId, newspaper).then(function(returnedData) {
@@ -64,8 +58,6 @@ angular.module('clientApp.controllers', [])
         if($routeParams.adId) {
             $scope.getAd($routeParams.adId);
         }
-
-    //    $scope.ad = AdsService.Ad()
 
         // populate all the newspapers. This should be cached and we should obviously not populate it with all newspapers if there can be many newspapers.
         $scope.getAllNewspapers();

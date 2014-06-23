@@ -8,8 +8,8 @@ angular.module('clientApp.NewspaperService', [])
 
             Newspaper: function() {
                 return {
-                    id: 155,
-                    publicationName: "New York Times"
+                    id: 0,
+                    publicationName: ""
                 };
             },
 
@@ -30,6 +30,44 @@ angular.module('clientApp.NewspaperService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                     $log.info('error: ' + data + status);
+                    d.reject(data);
+                });
+                return d.promise;
+            },
+
+            saveNewspaper: function(newspaper) {
+                var saveUrl = baseNewspaperUrl;
+                var saveMethod = 'POST';
+
+                if(newspaper.id && newspaper.id > 0) {
+                    saveUrl +=  newspaper.id;
+                    saveMethod = 'PUT';
+                }
+                var obj = JSON.stringify(ad);
+
+                var d = $q.defer();
+                $http({
+                    method: saveMethod,
+                    url: saveUrl,
+                    data: JSON.stringify(newspaper)
+                }).success(function (data) {
+                    d.resolve(data);
+                }).error(function (data, status) {
+                    $log.info('error: ' + data);
+                    d.reject(data);
+                });
+                return d.promise;
+            },
+
+            deleteNewspaper: function(id) {
+                var d = $q.defer();
+                $http({
+                    method: 'DELETE',
+                    url: baseNewspaperUrl + id
+                }).success(function (data) {
+                    d.resolve(data);
+                }).error(function (data, status) {
+                    $log.info('error: ' + data);
                     d.reject(data);
                 });
                 return d.promise;
