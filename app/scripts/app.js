@@ -6,9 +6,6 @@ var app = angular.module('clientApp', [
     'clientApp.NewspaperController',
     'clientApp.AdsService',
     'clientApp.NewspaperService',
-    'ngCookies',
-    'ngResource',
-    'ngSanitize',
     'ngRoute'
 ]);
 
