@@ -6,7 +6,7 @@ angular.module('clientApp.NewspaperController', [])
         $scope.newspaper = NewspaperService.Newspaper();
 
         $scope.getNewspaper = function (id) {
-            NewspaperService.getNewspaper().then(function (d) {
+            NewspaperService.getNewspaper(id).then(function (d) {
                 $scope.newspaper = d;
             })
         };
