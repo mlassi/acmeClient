@@ -20,11 +20,11 @@ angular.module('clientApp.AdsService', [])
 
             getAd: function (adId) {
                 var d = $q.defer();
-                $http.get(baseAdsUrl + adId).success(function (data) {
-                    d.resolve(data);
-                }).error(function (data) {
-                    $log.info('error: ' + data);
-                    d.reject(data);
+                $http.get(baseAdsUrl + adId).success(function (response) {
+                    d.resolve(response);
+                }).error(function (response) {
+                    $log.info('error: ' + response);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -35,7 +35,7 @@ angular.module('clientApp.AdsService', [])
                     d.resolve(data);
                 }).error(function (data) {
                     $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -75,7 +75,7 @@ angular.module('clientApp.AdsService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                     $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
