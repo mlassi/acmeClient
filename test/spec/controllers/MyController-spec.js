@@ -13,8 +13,6 @@ describe('Controller: AdsController', function () {
 
     beforeEach(inject(
         function(_$rootScope_, $controller, _$routeParams_ ) {
-            //location = _$location_;
-            //route = _$route_;
             rootScope = _$rootScope_;
             scope = rootScope.$new();
           //  route = jasmine.createSpy();

@@ -1,7 +1,8 @@
 angular.module('clientApp.NewspaperController', [])
 
-    .controller('NewspapersController', function ($scope, $http, $routeParams, NewspaperService) {
+    .controller('NewspapersController', function ($scope, $routeParams, NewspaperService) {
 
+        $scope.MyStuff = "abc";
         $scope.newspaperList = [];
         $scope.newspaper = NewspaperService.Newspaper();
 

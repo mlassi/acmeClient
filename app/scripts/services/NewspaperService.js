@@ -1,6 +1,6 @@
 angular.module('clientApp.NewspaperService', [])
 
-    .factory("NewspaperService", function ($q, $http, $log) {
+    .factory("NewspaperService", function ($q, $http) {
 
         var baseNewspaperUrl = 'http://localhost/newspapers/';
 
@@ -18,7 +18,7 @@ angular.module('clientApp.NewspaperService', [])
                 $http.get(baseNewspaperUrl + newspaperId).success(function (data) {
                     d.resolve(data);
                 }).error(function (data) {
-                    $log.info('error: ' + data);
+                   // $log.info('error: ' + data);
                     d.reject(data);
                 });
                 return d.promise;
@@ -29,7 +29,7 @@ angular.module('clientApp.NewspaperService', [])
                 $http.get(baseNewspaperUrl).success(function (data) {
                     d.resolve(data);
                 }).error(function (data, status) {
-                    $log.info('error: ' + data + status);
+                   // $log.info('error: ' + data + status);
                     d.reject(data);
                 });
                 return d.promise;
@@ -53,7 +53,7 @@ angular.module('clientApp.NewspaperService', [])
                 }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data, status) {
-                    $log.info('error: ' + data);
+                   // $log.info('error: ' + data);
                     d.reject(data);
                 });
                 return d.promise;
@@ -67,7 +67,7 @@ angular.module('clientApp.NewspaperService', [])
                 }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data, status) {
-                    $log.info('error: ' + data);
+                 //   $log.info('error: ' + data);
                     d.reject(data);
                 });
                 return d.promise;

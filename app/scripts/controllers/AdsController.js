@@ -8,6 +8,7 @@ angular.module('clientApp.AdsController', [])
     .controller('AdsController', ['$scope', '$routeParams', 'AdsService, NewspaperService', function ($scope, $routeParams, AdsService, NewspaperService) {
     //.controller('AdsController', function ($scope, $http, $routeParams, AdsService, NewspaperService) {
 
+
         $scope.ad = AdsService.Ad();
         //$scope.ad = {};
         $scope.adsList = [];
