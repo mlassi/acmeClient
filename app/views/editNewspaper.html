@@ -3,5 +3,5 @@
 <form class="form-horizontal" name="newspaperForm" novalidate>
     <input type="text" ng-model="newspaper.id" ng-readonly="true" placeholder="ID"><br>
     <input type="text" ng-model="newspaper.publicationName" placeholder="Publication Name"><br>
-    <input type="button" value="Save Newspaper" ng-click="saveNewspaper()"/>
+    <input type="button" value="Save Newspaper" ng-click="saveNewspaper($scope.newspaper)"/>
 </form>

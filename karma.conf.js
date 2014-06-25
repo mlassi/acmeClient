@@ -19,12 +19,15 @@ module.exports = function(config) {
       'test/spec/**/*.js'
     ],
 
-    //  'app/scripts*//*.js',
-   //   'app/scripts*//***/*//*.js',
-   //   'test/mock*//***/*//*.js',
-   //   'test/spec*//***/*//*.js'*/
     // list of files / patterns to exclude
     exclude: [],
+
+    // assumes that node karma-coverage has been installed
+    preprocessors: {
+        'app//scripts/**/*.js': ['coverage']
+    },
+
+    reporters: ['progress', 'coverage'],
 
     // web server port
     //port: 8080,

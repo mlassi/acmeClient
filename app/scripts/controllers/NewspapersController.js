@@ -2,7 +2,6 @@ angular.module('clientApp.NewspaperController', [])
 
     .controller('NewspapersController', function ($scope, $routeParams, NewspaperService) {
 
-        $scope.MyStuff = "abc";
         $scope.newspaperList = [];
         $scope.newspaper = NewspaperService.Newspaper();
 
@@ -12,15 +11,15 @@ angular.module('clientApp.NewspaperController', [])
             })
         };
 
-        $scope.saveNewspaper = function() {
-            NewspaperService.saveNewspaper($scope.newspaper).then(function (savedNewspaper) {
+        $scope.saveNewspaper = function(newspaper) {
+            NewspaperService.saveNewspaper(newspaper).then(function (savedNewspaper) {
                 $scope.newspaper = savedNewspaper;
             });
         };
 
         $scope.deleteNewspaper = function(id) {
            NewspaperService.deleteNewspaper(id).then(function (newspaperId) {
-                var a = newspaperId;
+                $scope.newspaper = null;
             })
         };
 
