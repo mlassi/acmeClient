@@ -13,6 +13,10 @@ angular.module('clientApp.NewspaperService', [])
                 };
             },
 
+            NewspaperList: function() {
+                return [];
+            },
+
             getNewspaper: function (newspaperId) {
                 var d = $q.defer();
                 $http.get(baseNewspaperUrl + newspaperId).success(function (data) {

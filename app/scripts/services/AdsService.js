@@ -14,6 +14,10 @@ angular.module('clientApp.AdsService', [])
                 };
             },
 
+            AdsList: function() {
+              return  [];
+            },
+
             getAd: function (adId) {
                 var d = $q.defer();
                 $http.get(baseAdsUrl + adId).success(function (data) {

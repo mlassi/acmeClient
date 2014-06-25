@@ -11,46 +11,60 @@ angular.module('clientApp.AdsController', [])
 
 
         $scope.ad = AdsService.Ad();
-        //$scope.ad = {};
-        $scope.adsList = [];
-        $scope.newspaperList = [];
+        $scope.adsList = AdsService.AdsList();
+        $scope.newspaperList = NewspaperService.NewspaperList();
         $scope.newspaper = NewspaperService.Newspaper();
-
-        $scope.stuff = "123";
+        $scope.errorMessage = null;
 
         $scope.getAd = function (id) {
             AdsService.getAd(id).then(function (d) {
                 $scope.ad = d;
+            }, function (error) {
+                $scope.ad = null;
+                $scope.errorMessage = error;
             })
         };
 
         $scope.getAllAds = function () {
             AdsService.getAllAds().then(function (returnedAds) {
                 $scope.adsList = returnedAds;
+            }, function(error){
+                $scope.adsList = null;
+                $scope.errorMessage = error;
             })
         };
 
-        $scope.saveAd = function() {
-            AdsService.saveAd($scope.ad).then(function (savedAd) {
+        $scope.saveAd = function(ad) {
+            AdsService.saveAd(ad).then(function (savedAd) {
                 $scope.ad = savedAd;
-            });
+            }, function (error) {
+                $scope.ad = null;
+                $scope.errorMessage = error;
+            })
         };
 
         $scope.deleteAd = function(id) {
             AdsService.deleteAd(id).then(function (adId) {
-                var a = adId;
+            },  function (error) {
+                $scope.ad = null;
+                $scope.errorMessage = error;
             })
         };
 
         $scope.getAllNewspapers = function() {
             NewspaperService.getAllNewspapers().then(function(returnedNewspapers) {
                 $scope.newspaperList = returnedNewspapers;
+            },  function (error) {
+                $scope.ad = null;
+                $scope.errorMessage = error;
             })
         };
 
         $scope.publishAd = function(newspaper) {
             AdsService.publishAdToNewspaper($routeParams.adId, newspaper).then(function(returnedData) {
-                var something = returnedData;
+            },  function (error) {
+                $scope.ad = null;
+                $scope.errorMessage = error;
             })
 
         };

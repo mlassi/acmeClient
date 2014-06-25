@@ -5,7 +5,7 @@
     <input type="text" ng-model="ad.id" ng-readonly="true" placeholder="ID"><br>
     <input type="text" ng-model="ad.title" placeholder="Ad Title"><br>
     <input type="text" ng-model="ad.description" placeholder="Description" name="description"><br>
-    <input type="button" value="Save Ad" ng-click="saveAd()"/>
+    <input type="button" value="Save Ad" ng-click="saveAd($scope.ad)"/>
 </form>
 Form:
 <pre ng-bind="toJSON(adForm)"></pre>

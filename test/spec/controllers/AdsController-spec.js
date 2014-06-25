@@ -12,6 +12,10 @@ var adListData = [
     { "id": 3, "title": "Rock star principal", "description": "Need a really awesome principal for a struggling school." }
 ];
 
+var loadAdErrorMsg = "Something when wrong while loading ad";
+var loadAdListErrorMsg = "Something went wrong while loading ad list";
+var saveAdErrorMsg = "Something went wrong while saving ad";
+
 describe("Controller : AdsController", function() {
     var adsService,
         newspaperService,
@@ -49,7 +53,7 @@ describe("Controller : AdsController", function() {
                     return _$q_.when(adListData);
                 }
                 else{
-                    return _$q_.reject("Something went wrong");
+                    return _$q_.reject(loadAdListErrorMsg);
                 }
             });
 
@@ -59,7 +63,7 @@ describe("Controller : AdsController", function() {
                     return _$q_.when(adListData[id]);
                 }
                 else{
-                    return _$q_.reject("Something went wrong");
+                    return _$q_.reject(loadAdErrorMsg);
                 }
             });
 
@@ -69,7 +73,7 @@ describe("Controller : AdsController", function() {
                     return _$q_.when(adListData[ad.id - 1]);
                 }
                 else{
-                    return _$q_.reject("Something went wrong");
+                    return _$q_.reject(saveAdErrorMsg);
                 }
             });
 
@@ -86,7 +90,7 @@ describe("Controller : AdsController", function() {
         adsController = controller('AdsController', {$scope: scope, $routeParams: routeParams});
     }));
 
-    describe('ad list scenarios', function() {
+    describe('ad list and newspaper list scenarios', function() {
         it('should call getAllNewspapers when called in controller', function(){
             succeedPromise = true;
             scope.getAllNewspapers();
@@ -101,6 +105,59 @@ describe("Controller : AdsController", function() {
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
             expect(scope.adsList.length).toBe(3);
+        });
+
+        it('ad list should be null if the ad list cannot be loaded', function() {
+            succeedPromise = false;
+            scope.getAllAds();
+            scope.$digest();
+            expect(adsService.getAllAds).toHaveBeenCalled();
+            expect(scope.adsList).toBeNull();
+            expect(scope.errorMessage).toBeDefined();
+            expect(scope.errorMessage).toBe(loadAdListErrorMsg);
+        })
+    });
+
+    describe('ad load scenarios', function() {
+        it('should load an when ad when getAd is called in controller', function(){
+            succeedPromise = true;
+            scope.getAd(2);
+            scope.$digest();
+            expect(adsService.getAd).toHaveBeenCalled();
+            expect(scope.ad.id).toBe(3);
+        });
+
+        it('ad should be null if the ad cannot be loaded', function() {
+            succeedPromise = false;
+            scope.getAd(2);
+            scope.$digest();
+            expect(adsService.getAd).toHaveBeenCalled();
+            expect(scope.ad).toBeNull();
+            expect(scope.errorMessage).toBeDefined();
+            expect(scope.errorMessage).toBe(loadAdErrorMsg);
+        })
+    });
+
+    describe("save ad scenarios", function() {
+
+        it("should return a saved newspaper when an ad  is saved", function() {
+            succeedPromise = true;
+            var adToSave = adListData[1];
+            scope.saveAd(adToSave);
+            scope.$digest();
+            expect(adsService.saveAd).toHaveBeenCalled();
+            expect(scope.ad.id).toBe(adToSave.id);
+        });
+
+        it("should not return an ad when save ad fails", function() {
+            succeedPromise = false;
+            var adToSave = adListData[1];
+            scope.saveAd(adToSave);
+            scope.$digest();
+            expect(adsService.saveAd).toHaveBeenCalled();
+            expect(scope.ad).toBeNull();
+            expect(scope.errorMessage).toBeDefined();
+            expect(scope.errorMessage).toBe(saveAdErrorMsg);
         });
 
     });
