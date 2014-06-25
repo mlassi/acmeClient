@@ -1,59 +1,107 @@
-//
-//'use strict';
-//
-//describe('Controller: AdsController', function () {
-//
-//    // load the controller's module
-//   // beforeEach(module('clientApp', 'clientApp.MyController', 'ngRoute'));
-//
-//
-//    /*
-//    beforeEach(module(function($provide) {
-//        var adsService = {
-//            getAllAds: function() {
-//                return [
-//                    {id: 1,
-//                        "title": "first title",
-//                        "description": "first description"
-//                    }];
-//            }
-//        };
-//        $provide.value("AdsService", adsService);
-//    }));
-//*/
-//    var MainCtrl,
-//       scope,
-//       route,
-//        rootScope,
-//        $provide,
-//        service;
-//
-//    beforeEach(function() {
-//       module('clientApp.AdsController', 'ngRoute');
-//    });
-//
-//    beforeEach(module(function($provide) {
-//        service = { getAd: function(adId) {
-//            return { id: 1, title: "my title", description: "my description"};
-//        }};
-//        $provide.value('AdsService', service);
-//    }));
-//
-//    describe("some cool stuff", function() {
-//        beforeEach(inject(
-//            function(_$rootScope_, $controller, _$routeParams_ ) {
-//                rootScope = _$rootScope_;
-//                scope = rootScope.$new();
-//                route = _$routeParams_;
-//
-//                MainCtrl = $controller('AdsController', { $scope : scope, $routeParams: route });
-//            }));
-//
-//        it('i a test', function() {
-//            expect(scope.stuff).toBe("123");
-//        });
-//    });
-//
-//});
-//
-//
+'use strict';
+
+var newspaperListData = [
+    { "id": 1, "publicationName": "Angular JS" },
+    { "id": 2, "publicationName": "Mastering Angular JS" },
+    { "id": 3, "publicationName": "Unit Testing using Jasmine" }
+];
+
+var adListData = [
+    { "id": 1, "title": "Cook needed", "description": "A cook is needed for McDonalds" },
+    { "id": 2, "title": "Car mechanic is needed", "description": "Needs to know how to fix new cars too!" },
+    { "id": 3, "title": "Rock star principal", "description": "Need a really awesome principal for a struggling school." }
+];
+
+describe("Controller : AdsController", function() {
+    var adsService,
+        newspaperService,
+        scope,
+        controller,
+        routeParams,
+        succeedPromise,
+        adsController;
+
+    beforeEach(function(){
+        module("clientApp");
+    });
+
+    beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$routeParams_, _AdsService_,  _NewspaperService_){
+        controller = _$controller_;
+
+        scope = _$rootScope_.$new();
+        routeParams = _$routeParams_;
+        newspaperService = _NewspaperService_;
+        adsService = _AdsService_;
+
+        spyOn(newspaperService, "getAllNewspapers")
+            .andCallFake(function(){
+                if (succeedPromise) {
+                    return _$q_.when(newspaperListData);
+                }
+                else{
+                    return _$q_.reject("Something went wrong");
+                }
+            });
+
+        spyOn(adsService, "getAllAds")
+            .andCallFake(function(){
+                if (succeedPromise) {
+                    return _$q_.when(adListData);
+                }
+                else{
+                    return _$q_.reject("Something went wrong");
+                }
+            });
+
+        spyOn(adsService, "getAd")
+            .andCallFake(function(id){
+                if (succeedPromise) {
+                    return _$q_.when(adListData[id]);
+                }
+                else{
+                    return _$q_.reject("Something went wrong");
+                }
+            });
+
+        spyOn(adsService, "saveAd")
+            .andCallFake(function(ad){
+                if (succeedPromise) {
+                    return _$q_.when(adListData[ad.id - 1]);
+                }
+                else{
+                    return _$q_.reject("Something went wrong");
+                }
+            });
+
+        spyOn(adsService, "deleteAd")
+            .andCallFake(function(adId){
+                if (succeedPromise) {
+                    return _$q_.when(adId);
+                }
+                else{
+                    return _$q_.reject("Something went wrong");
+                }
+            });
+
+        adsController = controller('AdsController', {$scope: scope, $routeParams: routeParams});
+    }));
+
+    describe('ad list scenarios', function() {
+        it('should call getAllNewspapers when called in controller', function(){
+            succeedPromise = true;
+            scope.getAllNewspapers();
+            scope.$digest();
+            expect(newspaperService.getAllNewspapers).toHaveBeenCalled();
+            expect(scope.newspaperList.length).toBe(3);
+        });
+
+        it('should call getAllAds when called in controller', function(){
+            succeedPromise = true;
+            scope.getAllAds();
+            scope.$digest();
+            expect(adsService.getAllAds).toHaveBeenCalled();
+            expect(scope.adsList.length).toBe(3);
+        });
+
+    });
+});

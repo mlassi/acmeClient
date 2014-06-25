@@ -1,3 +1,5 @@
+'use strict';
+
 var newspaperListData = [
     { "id": 1, "publicationName": "Angular JS" },
     { "id": 2, "publicationName": "Mastering Angular JS" },

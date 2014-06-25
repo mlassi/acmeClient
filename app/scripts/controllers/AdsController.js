@@ -4,9 +4,10 @@
 
 // .controller('AdsController', ['$scope', '$http', '$routeParams', 'AdModel', 'AdsService', function ($scope, $http, $routeParams, AdModel, AdsService) {
 //angular.module('clientApp.controllers', ['clientApp.services'])
+//     .controller('AdsController', ['$scope', '$routeParams', 'AdsService, NewspaperService', function ($scope, $routeParams, AdsService, NewspaperService) {
+
 angular.module('clientApp.AdsController', [])
-    .controller('AdsController', ['$scope', '$routeParams', 'AdsService, NewspaperService', function ($scope, $routeParams, AdsService, NewspaperService) {
-    //.controller('AdsController', function ($scope, $http, $routeParams, AdsService, NewspaperService) {
+     .controller('AdsController', function ($scope, $routeParams, AdsService, NewspaperService) {
 
 
         $scope.ad = AdsService.Ad();
@@ -61,5 +62,5 @@ angular.module('clientApp.AdsController', [])
         // populate all the newspapers. This should be cached and we should obviously not populate it with all newspapers if there can be many newspapers.
         $scope.getAllNewspapers();
 
-//});
-    }]);
+});
+   // }]);
