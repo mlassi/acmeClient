@@ -24,7 +24,7 @@ module.exports = function(config) {
 
     // assumes that node karma-coverage has been installed
     preprocessors: {
-        'app//scripts/**/*.js': ['coverage']
+        'app/scripts/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'coverage'],

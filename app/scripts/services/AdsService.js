@@ -51,7 +51,7 @@ angular.module('clientApp.AdsService', [])
                     d.resolve(data);
                 }).error(function (data) {
                     $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -89,7 +89,7 @@ angular.module('clientApp.AdsService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                     $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject('error');
                 });
                 return d.promise;
             }

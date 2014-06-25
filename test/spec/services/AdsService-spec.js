@@ -6,12 +6,14 @@ describe("Service : AdsService", function() {
         result,
         $httpBackend,
         validSingleAdResponse,
-        validAllAdsResponse;
+        validAllAdsResponse,
+        existingNewspaper;
 
     validSingleAdResponse = {"id": 1, "title": "first title", "description": "first description"};
     validAllAdsResponse = [ {"id": 1, "title": "first title", "description": "first description"},
                             {"id": 2, "title": "second title", "description": "second description"}
                             ];
+    existingNewspaper = {"id": 1, "publicationName":"New York Times"};
 
     beforeEach(function(){
         module("clientApp");
@@ -135,6 +137,68 @@ describe("Service : AdsService", function() {
             $httpBackend.flush();
 
             expect(result).toBe("error");
+        });
+
+        describe('delete ad', function() {
+            it('should delete an ad if it is an existing ad', function() {
+                $httpBackend.expectDELETE('http://localhost/ads/1').respond(validSingleAdResponse);
+
+                var returnedPromise = adsService.deleteAd(1);
+
+                returnedPromise.then(function(response) {
+                    result = response;
+                });
+                $httpBackend.flush();
+
+                expect(result).toEqual(validSingleAdResponse);
+            });
+
+            it('should return 404 if the ad cannot be found', function() {
+                $httpBackend.expectDELETE('http://localhost/ads/99').respond(404);
+
+                var returnedPromise = adsService.deleteAd(99);
+
+                returnedPromise.then(function(response) {
+                    result = response;
+                }, function(error) {
+                    result = error;
+                });
+                $httpBackend.flush();
+
+                expect(result).toBe("error");
+            });
+        });
+
+        describe('post ad to news paper', function() {
+           it('should post the ad to newspaper if both are valid', function() {
+               $httpBackend.expectPOST('http://localhost/ads/1/newspapers/newspaper', existingNewspaper)
+                   .respond(validSingleAdResponse);
+
+               var returnedPromise = adsService.publishAdToNewspaper(1, existingNewspaper);
+
+               returnedPromise.then(function(response) {
+                   result = response;
+               });
+               $httpBackend.flush();
+
+               expect(result).toEqual(validSingleAdResponse);
+           });
+
+           it('should return 404 if the ad or newspaper cannot be found', function() {
+               $httpBackend.expectPOST('http://localhost/ads/99/newspapers/newspaper', existingNewspaper)
+                   .respond(404);
+
+               var returnedPromise = adsService.publishAdToNewspaper(99, existingNewspaper);
+
+               returnedPromise.then(function(response) {
+                   result = response;
+               }, function(error) {
+                   result = error;
+               });
+               $httpBackend.flush();
+
+               expect(result).toBe("error");
+           });
         });
 
     });
