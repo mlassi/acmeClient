@@ -60,8 +60,8 @@ angular.module('clientApp.AdsController', [])
             })
         };
 
-        $scope.publishAd = function(newspaper) {
-            AdsService.publishAdToNewspaper($routeParams.adId, newspaper).then(function(returnedData) {
+        $scope.publishAd = function(id, newspaper) {
+            AdsService.publishAdToNewspaper(id, newspaper).then(function(returnedData) {
             },  function (error) {
                 $scope.ad = null;
                 $scope.errorMessage = error;
