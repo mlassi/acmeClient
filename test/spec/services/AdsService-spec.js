@@ -19,7 +19,7 @@ describe("Service : AdsService", function() {
         module("clientApp");
     });
 
-    beforeEach(inject(function( _$q_,_AdsService_, _$httpBackend_, _$log_){
+    beforeEach(inject(function(_AdsService_, _$httpBackend_, _$log_){
         adsService = _AdsService_;
         $httpBackend = _$httpBackend_;
 
@@ -88,7 +88,7 @@ describe("Service : AdsService", function() {
 
             expect(result).toBe("error");
         });
-    })
+    });
 
     describe('save ad', function() {
 

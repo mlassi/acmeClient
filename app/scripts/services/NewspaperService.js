@@ -23,7 +23,7 @@ angular.module('clientApp.NewspaperService', [])
                     d.resolve(data);
                 }).error(function (data) {
                    // $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject("error");
                 });
                 return d.promise;
             },
@@ -34,7 +34,7 @@ angular.module('clientApp.NewspaperService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                    // $log.info('error: ' + data + status);
-                    d.reject(data);
+                    d.reject("error");
                 });
                 return d.promise;
             },
@@ -47,7 +47,6 @@ angular.module('clientApp.NewspaperService', [])
                     saveUrl +=  newspaper.id;
                     saveMethod = 'PUT';
                 }
-                var obj = JSON.stringify(ad);
 
                 var d = $q.defer();
                 $http({
@@ -58,7 +57,7 @@ angular.module('clientApp.NewspaperService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                    // $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject("error");
                 });
                 return d.promise;
             },
@@ -72,7 +71,7 @@ angular.module('clientApp.NewspaperService', [])
                     d.resolve(data);
                 }).error(function (data, status) {
                  //   $log.info('error: ' + data);
-                    d.reject(data);
+                    d.reject("error");
                 });
                 return d.promise;
             }
