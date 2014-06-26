@@ -15,11 +15,11 @@ app.config(function ($routeProvider) {
             templateUrl: 'views/ads.html',
             controller: 'AdsController'
         })
-        .when('/editad/', {
+        .when('/editAd/', {
             templateUrl: 'views/editAd.html',
             controller: 'AdsController'
         })
-        .when('/editad/:adId', {
+        .when('/editAd/:adId', {
             templateUrl: 'views/editAd.html',
             controller: 'AdsController'
         })
@@ -27,7 +27,11 @@ app.config(function ($routeProvider) {
             templateUrl: 'views/newspapers.html',
             controller: 'NewspapersController'
         })
-        .when('/editnewspaper/:newspaperId', {
+        .when('/editNewspaper/', {
+            templateUrl: 'views/editNewspaper.html',
+            controller: 'NewspapersController'
+        })
+        .when('/editNewspaper/:newspaperId', {
             templateUrl: 'views/editNewspaper.html',
             controller: 'NewspapersController'
         })
