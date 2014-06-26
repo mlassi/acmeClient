@@ -20,7 +20,6 @@ angular.module('clientApp.AdsController', [])
             AdsService.getAd(id).then(function (d) {
                 $scope.ad = d;
             }, function (error) {
-                $scope.ad = null;
                 $scope.errorMessage = error;
             })
         };
@@ -29,7 +28,6 @@ angular.module('clientApp.AdsController', [])
             AdsService.getAllAds().then(function (returnedAds) {
                 $scope.adsList = returnedAds;
             }, function(error){
-                $scope.adsList = null;
                 $scope.errorMessage = error;
             })
         };
@@ -38,15 +36,14 @@ angular.module('clientApp.AdsController', [])
             AdsService.saveAd(ad).then(function (savedAd) {
                 $scope.ad = savedAd;
             }, function (error) {
-                $scope.ad = null;
                 $scope.errorMessage = error;
             })
         };
 
         $scope.deleteAd = function(id) {
             AdsService.deleteAd(id).then(function (adId) {
-            },  function (error) {
                 $scope.ad = null;
+            },  function (error) {
                 $scope.errorMessage = error;
             })
         };
@@ -55,7 +52,6 @@ angular.module('clientApp.AdsController', [])
             NewspaperService.getAllNewspapers().then(function(returnedNewspapers) {
                 $scope.newspaperList = returnedNewspapers;
             },  function (error) {
-                $scope.ad = null;
                 $scope.errorMessage = error;
             })
         };
@@ -63,7 +59,6 @@ angular.module('clientApp.AdsController', [])
         $scope.publishAd = function(id, newspaper) {
             AdsService.publishAdToNewspaper(id, newspaper).then(function(returnedData) {
             },  function (error) {
-                $scope.ad = null;
                 $scope.errorMessage = error;
             })
 

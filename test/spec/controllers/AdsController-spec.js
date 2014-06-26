@@ -126,7 +126,6 @@ describe("Controller : AdsController", function() {
             scope.getAllAds();
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
-            expect(scope.adsList).toBeNull();
             expect(scope.errorMessage).toBeDefined();
             expect(scope.errorMessage).toBe(loadAdListErrorMsg);
         })
@@ -146,7 +145,6 @@ describe("Controller : AdsController", function() {
             scope.getAd(2);
             scope.$digest();
             expect(adsService.getAd).toHaveBeenCalled();
-            expect(scope.ad).toBeNull();
             expect(scope.errorMessage).toBeDefined();
             expect(scope.errorMessage).toBe(loadAdErrorMsg);
         })
@@ -169,7 +167,6 @@ describe("Controller : AdsController", function() {
             scope.saveAd(adToSave);
             scope.$digest();
             expect(adsService.saveAd).toHaveBeenCalled();
-            expect(scope.ad).toBeNull();
             expect(scope.errorMessage).toBeDefined();
             expect(scope.errorMessage).toBe(saveAdErrorMsg);
         });
