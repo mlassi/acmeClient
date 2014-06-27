@@ -1,11 +1,5 @@
 'use strict';
 
-// .controller('AdsController', function ($scope, $http, $routeParams, AdModel, NewspaperModel, AdsService) {
-
-// .controller('AdsController', ['$scope', '$http', '$routeParams', 'AdModel', 'AdsService', function ($scope, $http, $routeParams, AdModel, AdsService) {
-//angular.module('clientApp.controllers', ['clientApp.services'])
-//     .controller('AdsController', ['$scope', '$routeParams', 'AdsService, NewspaperService', function ($scope, $routeParams, AdsService, NewspaperService) {
-
 angular.module('clientApp.AdsController', [])
      .controller('AdsController', function ($scope, $routeParams, AdsService, NewspaperService) {
 
@@ -68,7 +62,8 @@ angular.module('clientApp.AdsController', [])
             $scope.getAd($routeParams.adId);
         }
 
-        // populate all the newspapers. This should be cached and we should obviously not populate it with all newspapers if there can be many newspapers.
+        // populate all the newspapers. This should be cached and we should obviously not
+        // populate it with all newspapers if there can be many newspapers.
         $scope.getAllNewspapers();
 
 });

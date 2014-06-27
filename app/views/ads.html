@@ -11,7 +11,7 @@
             </tr>
         </thead>
     <tr data-ng-repeat="ad in adsList ">
-    <td><a href="#/editAd/{{ad.id}}">{{ ad.id }}</a></td>
+    <td><a href="#/editAd/{{ad.id}}">{{  ad.id }}</a></td>
     <td><span>{{ ad.title }}</span></td>
     <td><span> {{ ad.description }}</span></td>
     <td><button class="btn" ng-click="deleteAd(ad.id)" />X</td>
