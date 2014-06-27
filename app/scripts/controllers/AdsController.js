@@ -51,14 +51,19 @@ angular.module('clientApp.AdsController', [])
             })
         };
 
-        $scope.publishAd = function(id, newspaper) {
+        $scope.publishAd = function(adId, newspaperId) {
+            var foundNewspaper =  _.findWhere($scope.newspaperList, {id: newspaperId});
 
-            var foundNewspaper =  _.findWhere($scope.newspaperList, {id: newspaper});
+            if(!foundNewspaper) { $scope.errorMessage = "Could not find the selected news paper with id " + newspaperId}
 
-            AdsService.publishAdToNewspaper(id, foundNewspaper).then(function(returnedData) {
-            },  function (error) {
+            AdsService.publishAdToNewspaper(adId, foundNewspaper)
+                .then(function(returnedData) {
+                    $scope.getAd(adId);
+                }
+            ,  function (error) {
                 $scope.errorMessage = error;
-            })
+                return;
+            });
 
         };
 
