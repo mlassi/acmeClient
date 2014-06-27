@@ -5,13 +5,30 @@
     <input type="text" ng-model="ad.id" ng-readonly="true" placeholder="ID"><br>
     <input type="text" ng-model="ad.title" placeholder="Ad Title"><br>
     <input type="text" ng-model="ad.description" placeholder="Description" name="description"><br>
-
-    <select
-            ng-model="newspaper"
-            ng-options="g.publicationName for g in newspaperList track by g.id">
-    </select>
+    <table>
+        <tr data-ng-repeat="newspaper in ad.newspapers ">
+            <td>
+                <span class="label">{{ newspaper.publicationName }}</span>
+            </td>
+        </tr>
+    </table>
     <input type="button" value="Save Ad" ng-click="saveAd(ad)"/>
+    <ng-form name="publish">
+        <select
+                ng-model="make.selected"
+                ng-options="make.id as make.publicationName for make in newspaperList">
+            <pre>{{make.selected | json}}</pre>
+        </select>
+        <input type="button" value="Publish Ad" ng-click="publishAd(ad.id, make.selected)"/>
+    </ng-form>
 </form>
+
+
+
+<!--<select
+    ng-model="newspaper"
+    ng-options="c.id as c.publicationName for c in newspaperList track by c.id">
+</select>-->
 <div class="control-group">
     <h3>Ad has been published to these newspapers:</h3>
     <table>

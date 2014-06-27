@@ -8,6 +8,7 @@ angular.module('clientApp.AdsController', [])
         $scope.adsList = AdsService.AdsList();
         $scope.newspaperList = NewspaperService.NewspaperList();
         $scope.newspaper = NewspaperService.Newspaper();
+        $scope.selectedNewspaper = {"id":2,"publicationName":"New York"};
         $scope.errorMessage = null;
 
         $scope.getAd = function (id) {
