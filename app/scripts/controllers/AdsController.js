@@ -52,7 +52,10 @@ angular.module('clientApp.AdsController', [])
         };
 
         $scope.publishAd = function(id, newspaper) {
-            AdsService.publishAdToNewspaper(id, newspaper).then(function(returnedData) {
+
+            var foundNewspaper =  _.findWhere($scope.newspaperList, {id: newspaper});
+
+            AdsService.publishAdToNewspaper(id, foundNewspaper).then(function(returnedData) {
             },  function (error) {
                 $scope.errorMessage = error;
             })
