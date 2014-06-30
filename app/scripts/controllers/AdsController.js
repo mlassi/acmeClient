@@ -38,6 +38,7 @@ angular.module('clientApp.AdsController', [])
         $scope.deleteAd = function(id) {
             AdsService.deleteAd(id).then(function (adId) {
                 $scope.ad = null;
+                $scope.getAllAds();
             },  function (error) {
                 $scope.errorMessage = error;
             })

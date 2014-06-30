@@ -20,6 +20,7 @@ angular.module('clientApp.NewspaperController', [])
         $scope.deleteNewspaper = function(id) {
            NewspaperService.deleteNewspaper(id).then(function (newspaperId) {
                 $scope.newspaper = null;
+                $scope.getAllNewspapers();
             })
         };
 
