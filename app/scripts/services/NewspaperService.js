@@ -1,6 +1,6 @@
 angular.module('clientApp.NewspaperService', [])
 
-    .factory("NewspaperService", function ($q, $http) {
+    .factory("NewspaperService", function ($q, $http, $log) {
 
         var baseNewspaperUrl = 'http://localhost/newspapers/';
 
@@ -22,8 +22,8 @@ angular.module('clientApp.NewspaperService', [])
                 $http.get(baseNewspaperUrl + newspaperId).success(function (data) {
                     d.resolve(data);
                 }).error(function (data) {
-                   // $log.info('error: ' + data);
-                    d.reject("error");
+                   $log.info('error: ' + data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -32,9 +32,9 @@ angular.module('clientApp.NewspaperService', [])
                 var d = $q.defer();
                 $http.get(baseNewspaperUrl).success(function (data) {
                     d.resolve(data);
-                }).error(function (data, status) {
-                   // $log.info('error: ' + data + status);
-                    d.reject("error");
+                }).error(function (data) {
+                    $log.info('error: ' + data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -55,9 +55,9 @@ angular.module('clientApp.NewspaperService', [])
                     data: JSON.stringify(newspaper)
                 }).success(function (data) {
                     d.resolve(data);
-                }).error(function (data, status) {
-                   // $log.info('error: ' + data);
-                    d.reject("error");
+                }).error(function (data) {
+                    $log.info('error: ' + data);
+                    d.reject('error');
                 });
                 return d.promise;
             },
@@ -70,8 +70,8 @@ angular.module('clientApp.NewspaperService', [])
                 }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data, status) {
-                 //   $log.info('error: ' + data);
-                    d.reject("error");
+                   $log.info('error: ' + data);
+                    d.reject('error');
                 });
                 return d.promise;
             }

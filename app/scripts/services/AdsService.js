@@ -42,11 +42,11 @@ angular.module('clientApp.AdsService', [])
 
             publishAdToNewspaper: function(adId, newspaper) {
                 var d  = $q.defer();
-                var news = JSON.stringify(newspaper);
+
                 $http({
                     method: 'POST',
                     url: baseAdsUrl + adId + '/newspapers/newspaper',
-                    data: news
+                    data: JSON.stringify(newspaper)
                 }).success(function (data, status) {
                     d.resolve(data);
                 }).error(function (data) {
@@ -64,7 +64,6 @@ angular.module('clientApp.AdsService', [])
                     saveUrl +=  ad.id;
                     saveMethod = 'PUT';
                 }
-                var obj = JSON.stringify(ad);
 
                 var d = $q.defer();
                 $http({
