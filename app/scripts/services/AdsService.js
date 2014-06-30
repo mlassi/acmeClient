@@ -20,10 +20,10 @@ angular.module('clientApp.AdsService', [])
 
             getAd: function (adId) {
                 var d = $q.defer();
-                $http.get(baseAdsUrl + adId).success(function (response) {
-                    d.resolve(response);
-                }).error(function (response) {
-                    $log.info('error: ' + response);
+                $http.get(baseAdsUrl + adId).success(function (data) {
+                    d.resolve(data);
+                }).error(function (data) {
+                    $log.info('error: ' + data);
                     d.reject('error');
                 });
                 return d.promise;
@@ -47,7 +47,7 @@ angular.module('clientApp.AdsService', [])
                     method: 'POST',
                     url: baseAdsUrl + adId + '/newspapers/newspaper',
                     data: angular.toJson(newspaper)
-                }).success(function (data, status) {
+                }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data) {
                     $log.info('error: ' + data);
@@ -72,7 +72,7 @@ angular.module('clientApp.AdsService', [])
                     data: angular.toJson(ad)
                 }).success(function (data) {
                     d.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     $log.info('error: ' + data);
                     d.reject('error');
                 });
@@ -86,7 +86,7 @@ angular.module('clientApp.AdsService', [])
                     url: baseAdsUrl + id
                 }).success(function (data) {
                     d.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     $log.info('error: ' + data);
                     d.reject('error');
                 });

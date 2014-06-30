@@ -69,7 +69,7 @@ angular.module('clientApp.NewspaperService', [])
                     url: baseNewspaperUrl + id
                 }).success(function (data) {
                     d.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                    $log.info('error: ' + data);
                     d.reject('error');
                 });
