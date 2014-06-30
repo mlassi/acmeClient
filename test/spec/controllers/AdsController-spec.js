@@ -1,17 +1,5 @@
 'use strict';
 
-var newspaperListData = [
-    { "id": 1, "publicationName": "Angular JS" },
-    { "id": 2, "publicationName": "Mastering Angular JS" },
-    { "id": 3, "publicationName": "Unit Testing using Jasmine" }
-];
-
-var adListData = [
-    { "id": 1, "title": "Cook needed", "description": "A cook is needed for McDonalds" },
-    { "id": 2, "title": "Car mechanic is needed", "description": "Needs to know how to fix new cars too!" },
-    { "id": 3, "title": "Rock star principal", "description": "Need a really awesome principal for a struggling school." }
-];
-
 var loadAdErrorMsg = "Something when wrong while loading ad";
 var loadAdListErrorMsg = "Something went wrong while loading ad list";
 var loadNewspaperListErrorMsg = "Something went wrong while loading newspaper list";
@@ -26,7 +14,6 @@ describe("Controller : AdsController", function() {
         scope,
         controller,
         routeParams,
-        succeedPromise,
         adsController;
 
     beforeEach(function(){
@@ -41,72 +28,14 @@ describe("Controller : AdsController", function() {
         newspaperService = _NewspaperService_;
         adsService = _AdsService_;
 
-        spyOn(newspaperService, "getAllNewspapers")
-            .andCallFake(function(){
-                if (succeedPromise) {
-                    return _$q_.when(newspaperListData);
-                }
-                else{
-                    return _$q_.reject(loadNewspaperListErrorMsg);
-                }
-            });
-
-        spyOn(adsService, "getAllAds")
-            .andCallFake(function(){
-                if (succeedPromise) {
-                    return _$q_.when(adListData);
-                }
-                else{
-                    return _$q_.reject(loadAdListErrorMsg);
-                }
-            });
-
-        spyOn(adsService, "getAd")
-            .andCallFake(function(id){
-                if (succeedPromise) {
-                    return _$q_.when(adListData[id]);
-                }
-                else{
-                    return _$q_.reject(loadAdErrorMsg);
-                }
-            });
-
-        spyOn(adsService, "saveAd")
-            .andCallFake(function(ad){
-                if (succeedPromise) {
-                    return _$q_.when(adListData[ad.id - 1]);
-                }
-                else{
-                    return _$q_.reject(saveAdErrorMsg);
-                }
-            });
-
-        spyOn(adsService, "deleteAd")
-            .andCallFake(function(adId){
-                if (succeedPromise) {
-                    return _$q_.when(adId);
-                }
-                else{
-                    return _$q_.reject(deleteAdErrorMsg);
-                }
-            });
-
-        spyOn(adsService, "publishAdToNewspaper")
-            .andCallFake(function(id, newspaper){
-               if(succeedPromise) {
-                   return _$q_.when(adListData[id - 1]);
-               }
-                else {
-                   return _$q_.reject(postAdToNewspaperErrorMsg);
-               }
-            });
+        testHelper.createAdServiceMocks(adsService, newspaperService, _$q_);
 
         adsController = controller('AdsController', {$scope: scope, $routeParams: routeParams});
     }));
 
     describe('ad list and newspaper list scenarios', function() {
         it('should call getAllNewspapers when called in controller', function(){
-            succeedPromise = true;
+            testHelper.setSucceedPromise(true);
             scope.getAllNewspapers();
             scope.$digest();
             expect(newspaperService.getAllNewspapers).toHaveBeenCalled();
@@ -114,7 +43,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('should call getAllAds when called in controller', function(){
-            succeedPromise = true;
+            testHelper.setSucceedPromise(true);
             scope.getAllAds();
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
@@ -122,7 +51,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('ad list should be null if the ad list cannot be loaded', function() {
-            succeedPromise = false;
+            testHelper.setSucceedPromise(false);
             scope.getAllAds();
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
@@ -133,7 +62,7 @@ describe("Controller : AdsController", function() {
 
     describe('ad load scenarios', function() {
         it('should load an when ad when getAd is called in controller', function(){
-            succeedPromise = true;
+            testHelper.setSucceedPromise(true);
             scope.getAd(2);
             scope.$digest();
             expect(adsService.getAd).toHaveBeenCalled();
@@ -141,7 +70,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('ad should be null if the ad cannot be loaded', function() {
-            succeedPromise = false;
+            testHelper.setSucceedPromise(false);
             scope.getAd(2);
             scope.$digest();
             expect(adsService.getAd).toHaveBeenCalled();
@@ -153,8 +82,8 @@ describe("Controller : AdsController", function() {
     describe("save ad scenarios", function() {
 
         it("should return a saved newspaper when an ad  is saved", function() {
-            succeedPromise = true;
-            var adToSave = adListData[1];
+            testHelper.setSucceedPromise(true);
+            var adToSave = testHelper.getAdListMockData()[1];
             scope.saveAd(adToSave);
             scope.$digest();
             expect(adsService.saveAd).toHaveBeenCalled();
@@ -162,8 +91,8 @@ describe("Controller : AdsController", function() {
         });
 
         it("should not return an ad when save ad fails", function() {
-            succeedPromise = false;
-            var adToSave = adListData[1];
+            testHelper.setSucceedPromise(false);
+            var adToSave = testHelper.getAdListMockData()[1];
             scope.saveAd(adToSave);
             scope.$digest();
             expect(adsService.saveAd).toHaveBeenCalled();
@@ -176,7 +105,7 @@ describe("Controller : AdsController", function() {
     describe("delete ad scenarios", function() {
 
         it("the ad should be deleted when delete is called", function() {
-            succeedPromise = true;
+            testHelper.setSucceedPromise(true);
             scope.deleteAd(2);
             scope.$digest();
             expect(adsService.deleteAd).toHaveBeenCalled();
@@ -184,7 +113,7 @@ describe("Controller : AdsController", function() {
         });
 
         it("should return an error message if the ad cannot be deleted", function() {
-            succeedPromise = false;
+            testHelper.setSucceedPromise(false);
             scope.deleteAd(2);
             scope.$digest();
             expect(adsService.deleteAd).toHaveBeenCalled();
@@ -196,16 +125,17 @@ describe("Controller : AdsController", function() {
     describe("post ad / cancel ad scenarios", function() {
 
         it("should post ad when called", function() {
-            succeedPromise = true;
-            var newspaperToPublishTo = newspaperListData[2];
+            testHelper.setSucceedPromise(true);
+            //var newspaperToPublishTo = newspaperListData[2];
+            var newspaperToPublishTo = testHelper.getNewspaperListMockData()[2];
             scope.publishAd(1, newspaperToPublishTo);
             scope.$digest();
             expect(adsService.publishAdToNewspaper).toHaveBeenCalled();
         });
 
         it("should not post ad if an error occurs when called", function() {
-            succeedPromise = false;
-            var newspaperToPublishTo = newspaperListData[2];
+            testHelper.setSucceedPromise(false);
+            var newspaperToPublishTo = testHelper.getNewspaperListMockData()[2];
             scope.publishAd(1, newspaperToPublishTo);
             scope.$digest();
             expect(adsService.publishAdToNewspaper).toHaveBeenCalled();
@@ -214,7 +144,5 @@ describe("Controller : AdsController", function() {
         });
 
     });
-
-
 
 });

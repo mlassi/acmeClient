@@ -17,6 +17,7 @@ module.exports = function(config) {
       'app/bower_components/underscore/underscore.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
+      'test/util/**/*.js',
       'test/spec/**/*.js'
     ],
 

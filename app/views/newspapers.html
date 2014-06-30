@@ -7,12 +7,17 @@
 <table class="table table-responsive table-striped table-hover">
     <thead>
         <tr>
-            <th>Newspaper Id</th><th>Publication Name</th>
+            <th>Newspaper Id</th>
+            <th>Publication Name</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
             </tr>
         </thead>
     <tr data-ng-repeat="newspaper in newspaperList ">
     <td><a href="#/editNewspaper/{{newspaper.id}}">{{  newspaper.id }}</a></td>
     <td><span>{{ newspaper.publicationName }}</span></td>
+    <td><span> {{ newspaper.createdDate }}</span></td>
+    <td><span> {{ newspaper.updatedDate }}</span></td>
     <td><button class="btn" ng-click="deleteNewspaper(newspaper.id)" />X</td>
     </tr>
 </table>

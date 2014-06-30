@@ -7,13 +7,19 @@
 <table class="table table-responsive table-striped table-hover">
     <thead>
         <tr>
-            <th>Ad Id</th><th>Title</th><th>Description</th>
+            <th>Ad Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
             </tr>
         </thead>
     <tr data-ng-repeat="ad in adsList ">
     <td><a href="#/editAd/{{ad.id}}">{{  ad.id }}</a></td>
     <td><span>{{ ad.title }}</span></td>
     <td><span> {{ ad.description }}</span></td>
+    <td><span> {{ ad.createdDate }}</span></td>
+        <td><span> {{ ad.updatedDate }}</span></td>
     <td><button class="btn" ng-click="deleteAd(ad.id)" />X</td>
     </tr>
 </table>
