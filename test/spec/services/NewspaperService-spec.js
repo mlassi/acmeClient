@@ -12,7 +12,7 @@ describe("Service : NewspaperService", function() {
     validSingleNewspaperResponse = {"id": 1, "publicationName": "New York Times"};
     validAllNewspapersResponse = [
         {"id": 1, "publicationName": "New York Times"},
-        {"id": 2, "publicationName": "Boston Glove"}
+        {"id": 2, "publicationName": "Boston Globe"}
     ];
 
     beforeEach(function () {

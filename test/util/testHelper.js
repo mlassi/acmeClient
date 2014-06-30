@@ -1,6 +1,6 @@
 'use strict';
-// var Module = (function () {
-var testHelper = (function() {
+
+var TestHelper = (function() {
 
     var succeedPromise;
     var newspaperListData = [
@@ -27,9 +27,7 @@ var testHelper = (function() {
             return adListData;
         }
 
-        function createAllAdServiceMocks(adsService, newspaperService, $q) {
-
-
+        function createAdServiceMocks(adsService, newspaperService, $q) {
 
         var loadAdErrorMsg = "Something when wrong while loading ad";
         var loadAdListErrorMsg = "Something went wrong while loading ad list";
@@ -104,8 +102,51 @@ var testHelper = (function() {
             });
     }
 
+    function createNewspaperMocks(newspaperService, $q) {
+        spyOn(newspaperService, "getAllNewspapers")
+            .andCallFake(function(){
+                if (succeedPromise) {
+                    return $q.when(newspaperListData);
+                }
+                else{
+                    return $q.reject("Something went wrong");
+                }
+            });
+
+        spyOn(newspaperService, "getNewspaper")
+            .andCallFake(function(id){
+                if (succeedPromise) {
+                    return $q.when(newspaperListData[id]);
+                }
+                else{
+                    return $q.reject("Something went wrong");
+                }
+            });
+
+        spyOn(newspaperService, "saveNewspaper")
+            .andCallFake(function(newspaper){
+                if (succeedPromise) {
+                    return $q.when(newspaperListData[newspaper.id - 1]);
+                }
+                else{
+                    return $q.reject("Something went wrong");
+                }
+            });
+
+        spyOn(newspaperService, "deleteNewspaper")
+            .andCallFake(function(newspaperId){
+                if (succeedPromise) {
+                    return $q.when(newspaperId);
+                }
+                else{
+                    return $q.reject("Something went wrong");
+                }
+            });
+    }
+
     return {
-        createAdServiceMocks: createAllAdServiceMocks,
+        createAdServiceMocks: createAdServiceMocks,
+        createNewspaperMocks: createNewspaperMocks,
         setSucceedPromise: setSucceedPromise,
         getNewspaperListMockData: getNewspaperListMockData,
         getAdListMockData: getAdListMockData

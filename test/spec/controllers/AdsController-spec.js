@@ -28,14 +28,14 @@ describe("Controller : AdsController", function() {
         newspaperService = _NewspaperService_;
         adsService = _AdsService_;
 
-        testHelper.createAdServiceMocks(adsService, newspaperService, _$q_);
+        TestHelper.createAdServiceMocks(adsService, newspaperService, _$q_);
 
         adsController = controller('AdsController', {$scope: scope, $routeParams: routeParams});
     }));
 
     describe('ad list and newspaper list scenarios', function() {
         it('should call getAllNewspapers when called in controller', function(){
-            testHelper.setSucceedPromise(true);
+            TestHelper.setSucceedPromise(true);
             scope.getAllNewspapers();
             scope.$digest();
             expect(newspaperService.getAllNewspapers).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('should call getAllAds when called in controller', function(){
-            testHelper.setSucceedPromise(true);
+            TestHelper.setSucceedPromise(true);
             scope.getAllAds();
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('ad list should be null if the ad list cannot be loaded', function() {
-            testHelper.setSucceedPromise(false);
+            TestHelper.setSucceedPromise(false);
             scope.getAllAds();
             scope.$digest();
             expect(adsService.getAllAds).toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe("Controller : AdsController", function() {
 
     describe('ad load scenarios', function() {
         it('should load an when ad when getAd is called in controller', function(){
-            testHelper.setSucceedPromise(true);
+            TestHelper.setSucceedPromise(true);
             scope.getAd(2);
             scope.$digest();
             expect(adsService.getAd).toHaveBeenCalled();
@@ -70,7 +70,7 @@ describe("Controller : AdsController", function() {
         });
 
         it('ad should be null if the ad cannot be loaded', function() {
-            testHelper.setSucceedPromise(false);
+            TestHelper.setSucceedPromise(false);
             scope.getAd(2);
             scope.$digest();
             expect(adsService.getAd).toHaveBeenCalled();
@@ -82,8 +82,8 @@ describe("Controller : AdsController", function() {
     describe("save ad scenarios", function() {
 
         it("should return a saved newspaper when an ad  is saved", function() {
-            testHelper.setSucceedPromise(true);
-            var adToSave = testHelper.getAdListMockData()[1];
+            TestHelper.setSucceedPromise(true);
+            var adToSave = TestHelper.getAdListMockData()[1];
             scope.saveAd(adToSave);
             scope.$digest();
             expect(adsService.saveAd).toHaveBeenCalled();
@@ -91,8 +91,8 @@ describe("Controller : AdsController", function() {
         });
 
         it("should not return an ad when save ad fails", function() {
-            testHelper.setSucceedPromise(false);
-            var adToSave = testHelper.getAdListMockData()[1];
+            TestHelper.setSucceedPromise(false);
+            var adToSave = TestHelper.getAdListMockData()[1];
             scope.saveAd(adToSave);
             scope.$digest();
             expect(adsService.saveAd).toHaveBeenCalled();
@@ -105,7 +105,7 @@ describe("Controller : AdsController", function() {
     describe("delete ad scenarios", function() {
 
         it("the ad should be deleted when delete is called", function() {
-            testHelper.setSucceedPromise(true);
+            TestHelper.setSucceedPromise(true);
             scope.deleteAd(2);
             scope.$digest();
             expect(adsService.deleteAd).toHaveBeenCalled();
@@ -113,7 +113,7 @@ describe("Controller : AdsController", function() {
         });
 
         it("should return an error message if the ad cannot be deleted", function() {
-            testHelper.setSucceedPromise(false);
+            TestHelper.setSucceedPromise(false);
             scope.deleteAd(2);
             scope.$digest();
             expect(adsService.deleteAd).toHaveBeenCalled();
@@ -125,17 +125,17 @@ describe("Controller : AdsController", function() {
     describe("post ad / cancel ad scenarios", function() {
 
         it("should post ad when called", function() {
-            testHelper.setSucceedPromise(true);
+            TestHelper.setSucceedPromise(true);
             //var newspaperToPublishTo = newspaperListData[2];
-            var newspaperToPublishTo = testHelper.getNewspaperListMockData()[2];
+            var newspaperToPublishTo = TestHelper.getNewspaperListMockData()[2];
             scope.publishAd(1, newspaperToPublishTo);
             scope.$digest();
             expect(adsService.publishAdToNewspaper).toHaveBeenCalled();
         });
 
         it("should not post ad if an error occurs when called", function() {
-            testHelper.setSucceedPromise(false);
-            var newspaperToPublishTo = testHelper.getNewspaperListMockData()[2];
+            TestHelper.setSucceedPromise(false);
+            var newspaperToPublishTo = TestHelper.getNewspaperListMockData()[2];
             scope.publishAd(1, newspaperToPublishTo);
             scope.$digest();
             expect(adsService.publishAdToNewspaper).toHaveBeenCalled();

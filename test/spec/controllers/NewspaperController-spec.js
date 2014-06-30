@@ -26,52 +26,14 @@ describe("Controller : NewspaperController", function() {
         routeParams = _$routeParams_;
         newspaperService = _NewspaperService_;
 
-        spyOn(newspaperService, "getAllNewspapers")
-            .andCallFake(function(){
-                if (succeedPromise) {
-                    return _$q_.when(newspaperListData);
-                }
-                else{
-                    return _$q_.reject("Something went wrong");
-                }
-            });
-
-        spyOn(newspaperService, "getNewspaper")
-            .andCallFake(function(id){
-                if (succeedPromise) {
-                    return _$q_.when(newspaperListData[id]);
-                }
-                else{
-                    return _$q_.reject("Something went wrong");
-                }
-            });
-
-        spyOn(newspaperService, "saveNewspaper")
-            .andCallFake(function(newspaper){
-                if (succeedPromise) {
-                    return _$q_.when(newspaperListData[newspaper.id - 1]);
-                }
-                else{
-                    return _$q_.reject("Something went wrong");
-                }
-            });
-
-        spyOn(newspaperService, "deleteNewspaper")
-            .andCallFake(function(newspaperId){
-                if (succeedPromise) {
-                    return _$q_.when(newspaperId);
-                }
-                else{
-                    return _$q_.reject("Something went wrong");
-                }
-            });
+        TestHelper.createNewspaperMocks(newspaperService, _$q_);
 
         newspaperController = controller('NewspapersController', {$scope: scope, $routeParams: routeParams});
     }));
 
     describe('newspaper list scenarios', function() {
         it('should call getAllNewspaperList when called in controller', function(){
-            succeedPromise = true;
+            TestHelper.setSucceedPromise(true);
             scope.getAllNewspapers();
             scope.$digest();
             expect(newspaperService.getAllNewspapers).toHaveBeenCalled();
@@ -79,7 +41,7 @@ describe("Controller : NewspaperController", function() {
         });
 
         it('should return an error when getAllNewspaperList fails', function(){
-            succeedPromise = false;
+            TestHelper.setSucceedPromise(false);
             scope.getAllNewspapers();
             scope.$digest();
             expect(newspaperService.getAllNewspapers).toHaveBeenCalled();
@@ -89,7 +51,7 @@ describe("Controller : NewspaperController", function() {
 
     describe('newspaper load scenarios', function() {
         it('should call getNewspaper when called in controller', function(){
-            succeedPromise = true;
+            TestHelper.setSucceedPromise(true);
             scope.getNewspaper(2);
             scope.$digest();
             expect(newspaperService.getNewspaper).toHaveBeenCalled();
@@ -97,7 +59,7 @@ describe("Controller : NewspaperController", function() {
         });
 
         xit('should return a newspaper when the routeParam id has been set', function() {
-            succeedPromise = true;
+            TestHelper.setSucceedPromise(true);
             var routeParamsStub = jasmine.createSpy('routeParamsStub')
             routeParamsStub.newspaperId = 1;
             scope.$routeParams = routeParamsStub;
@@ -108,7 +70,7 @@ describe("Controller : NewspaperController", function() {
     describe("save newspaper scenarios", function() {
 
         it("should return a saved newspaper when a new newspaper is saved", function() {
-           succeedPromise = true;
+            TestHelper.setSucceedPromise(true);
            var newspaperToSave = newspaperListData[1];
            scope.saveNewspaper(newspaperToSave);
            scope.$digest();
@@ -117,8 +79,8 @@ describe("Controller : NewspaperController", function() {
         });
 
         it("should not return a newspaper when save newspaper fails", function() {
-            succeedPromise = false;
-            var newspaperToSave = newspaperListData[1];
+            TestHelper.setSucceedPromise(false);
+            var newspaperToSave = TestHelper.getNewspaperListMockData()[1];
             scope.saveNewspaper(newspaperToSave);
             scope.$digest();
             expect(newspaperService.saveNewspaper).toHaveBeenCalled();
@@ -129,16 +91,12 @@ describe("Controller : NewspaperController", function() {
 
     describe("delete newspaper scenarios", function() {
         it("the newspaper should be deleted when delete is called", function() {
-            succeedPromise = true;
+            TestHelper.setSucceedPromise(true);
             scope.deleteNewspaper(2);
             scope.$digest();
             expect(newspaperService.deleteNewspaper).toHaveBeenCalled();
             expect(scope.newspaper).toBeNull();
         });
     });
-
-
-
-
 
 });
