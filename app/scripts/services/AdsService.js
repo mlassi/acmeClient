@@ -46,7 +46,7 @@ angular.module('clientApp.AdsService', [])
                 $http({
                     method: 'POST',
                     url: baseAdsUrl + adId + '/newspapers/newspaper',
-                    data: JSON.stringify(newspaper)
+                    data: angular.toJson(newspaper)
                 }).success(function (data, status) {
                     d.resolve(data);
                 }).error(function (data) {
@@ -69,7 +69,7 @@ angular.module('clientApp.AdsService', [])
                 $http({
                     method: saveMethod,
                     url: saveUrl,
-                    data: JSON.stringify(ad)
+                    data: angular.toJson(ad)
                 }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data, status) {

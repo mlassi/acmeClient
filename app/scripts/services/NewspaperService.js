@@ -52,7 +52,7 @@ angular.module('clientApp.NewspaperService', [])
                 $http({
                     method: saveMethod,
                     url: saveUrl,
-                    data: JSON.stringify(newspaper)
+                    data: angular.toJson(newspaper)
                 }).success(function (data) {
                     d.resolve(data);
                 }).error(function (data) {
